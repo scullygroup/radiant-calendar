@@ -1,0 +1,37 @@
+- if "#{controller.action_name}" == "update"
+  - @action = "update/#{params[:id]}"
+- else
+  - @action = "create"
+  
+- form_for(:calendar, :url => "/admin/calendars/#{@action}") do |f|
+  = f.error_messages
+
+  %p
+    = f.label :event
+    %br
+    = f.text_field :event
+  %p
+    = f.label :description
+    %br
+    /= fckeditor_textarea(:calendar, :description, :width => "900px", :height => "400px")
+    = f.text_area :description
+  %p
+    = f.label :start
+    %br
+    = f.calendar_date_select :start_date, :time => true
+  %p
+    = f.label :end
+    %br
+    = f.calendar_date_select :end_date, :time => true
+
+  %ul.category-list
+    - for category in Category.all
+      %li
+        = check_box_tag "calendar[category_ids][]", category.id, @calendar.categories.include?(category)
+        = category.name
+  
+  %p
+    = save_model_button(@calendar)
+    or
+    = link_to 'Cancel', "/admin/calendars/#{Time.now.strftime('%Y-%m-%d')}"
+      

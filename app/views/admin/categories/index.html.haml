@@ -1,0 +1,16 @@
+- include_stylesheet 'calendar-admin'
+= render :partial => '/admin/calendars/secondary_nav'
+
+%h1 Event Categories
+%table.table
+  %tr
+    %th
+      Name
+  - @categories.each do |category|
+    %tr
+      %td
+        = h category.name
+      %td
+        = link_to 'Edit', "/admin/categories/edit/#{category.id}"
+        |
+        = link_to 'Destroy', category, :confirm => 'Are you sure?', :method => :delete

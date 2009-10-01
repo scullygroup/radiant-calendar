@@ -1,0 +1,6 @@
+- include_stylesheet 'calendar-admin'
+= render :partial => '/admin/calendars/secondary_nav'
+
+%h1 Add New Category
+
+= render :partial => '/admin/categories/form', :locals => {:button => 'Create Category'}

@@ -1,0 +1,9 @@
+.secondary-navigation
+  %ul
+    %li
+      = link_to 'Add New Event', "/admin/calendars/new/#{Time.now.strftime('%Y-%m-%d')}"
+    %li
+      = link_to 'Add New Category', "/admin/categories/new"
+    %li
+      = link_to 'Show All Categories', "/admin/categories"
+  .clear

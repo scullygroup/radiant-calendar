@@ -1,0 +1,16 @@
+- if "#{controller.action_name}" == "update"
+  - @action = "update/#{params[:id]}"
+- else
+  - @action = "create"
+  
+- form_for(:category, :url => "/admin/categories/#{@action}") do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br
+    = f.text_field :name
+
+  %p
+    = save_model_button(@category)
+    or
+    = link_to 'Cancel', "/admin/categories"
