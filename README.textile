@@ -13,10 +13,10 @@ h1. Features
 h1. Requirements
 
 <p>*Facebox* (included)<br />
-"http://famspam.com/facebox/":http://famspam.com/facebox</p>
+"http://famspam.com/facebox":http://famspam.com/facebox</p>
 
 <p>*jQuery* (included)<br />
-"http://jquery.com":"http://jquery.com"</p>
+"http://jquery.com":http://jquery.com</p>
 
 <p>*Gems/Plugins*<br /> 
 Squirrel, "git://github.com/thoughtbot/squirrel.git":git://github.com/thoughtbot/squirrel.git<br />
