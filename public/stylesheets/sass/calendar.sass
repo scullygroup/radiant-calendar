@@ -1,7 +1,12 @@
+.clear
+  :clear both
+  
+img
+  :border none
+  
 =headline
   :height 20px
   :padding-top 8px
-  :padding-left 8px
 
 = white_link  
   &:link, &:visited
@@ -21,12 +26,14 @@
     :background-color #666
     :float left
     +headline
+    :padding 8px
     :width 40px
 
   .event-date
     :background-color #999
     :float left
     +headline
+    :padding 8px
     :width 450px
 
 h1.current-calendar
@@ -65,8 +72,8 @@ h1.event-show
 
 .monthName
   :font-weight bold
-  :color #FFFFFF
-  :font-size 18px
+  :color #000
+  :font-size 22px
   :vertical-align top
 
   a
@@ -90,14 +97,15 @@ tr.calendar_nav
 .otherMonth
   :padding 7px 7px
   :color #666
-  :background-color #000
-
+  :background-color #ccc
+  :vertical-align top
 
 .day
   :padding 7px 7px
   :text-align center
-  :background-color #000
-  :color #FFF
+  :background-color #fff
+  :color #999
+  :vertical-align top
 
 
 .specialDay
@@ -106,21 +114,21 @@ tr.calendar_nav
   :color #FFF
   :background-color #731206
   :font-weight bold
-  :border 1pt solid #fff
-
+  :border 1pt solid #999
+  :vertical-align top
   a
     +white_link
 
 
 .weekendDay
-  :background-color #000
+  :background-color #FFFCC4
   :color #666
 
 
 .today
-  :background-color #FFF
+  :background-color #FFCC15
   :color #000
-  :border 1pt solid white
+  :border 1px solid #999
   
   a
     :text-align left
@@ -144,6 +152,7 @@ tr.calendar_nav
     :margin-bottom 25px
     :width 900px !important
     :margin 0 auto
+    :border-bottom 1px solid #999
   
     th.monthName
       :font-family Georgia, Times, sans-serif
@@ -169,7 +178,7 @@ tr.calendar_nav
       :width 85px !important
      
     .otherMonth, .day, .specialDay
-      :border 1px solid white
+      :border 1px solid #999
       :font-size 12px
 
     .specialDay
@@ -198,7 +207,7 @@ tr.calendar_nav
   :display block
   :border 1px solid #fff
   :float left
-  :margin-top -2px
+  :margin-right 3px
       
 #legend
   :background #000
@@ -216,7 +225,7 @@ tr.calendar_nav
   
     .off
       +box
-      :background-color #fff
+      :background-color #FFCC15
   
     .event
       +box
@@ -229,12 +238,11 @@ tr.calendar_nav
   :background-color #ccc
   
   h2
-    :padding-top 10px
+    :padding 10px
     :font-size 16px
     :background-color #666
     :height 30px
     :color #fff
-    :margin-bottom 10px
   
   h3
     :font-size 15px
@@ -256,11 +264,12 @@ tr.calendar_nav
 
 #checkboxes
   :margin-top 10px
+  :padding 10px
  
 ul.category-list
   :clear both
-  :margin-left 25px
   :margin-bottom 10px
+  :list-style-type none
   
   li
     :text-align left
@@ -269,11 +278,10 @@ ul.category-list
 #categories form input#update
   :background url('../images/update.jpg') no-repeat
   :width 94px
-  :height 25px
+  :height 30px
   :cursor pointer
 
 #ical-export
-  :float left
   :margin-left 8px
   :margin-bottom 5px
   

@@ -1,4 +1,4 @@
-- if "#{controller.action_name}" == "update"
+- if "#{controller.action_name}" == "edit"
   - @action = "update/#{params[:id]}"
 - else
   - @action = "create"
@@ -24,6 +24,8 @@
     %br
     = f.calendar_date_select :end_date, :time => true
 
+  %h2
+    Assign this event to one or more Categories
   %ul.category-list
     - for category in Category.all
       %li
@@ -33,5 +35,5 @@
   %p
     = save_model_button(@calendar)
     or
-    = link_to 'Cancel', "/admin/calendars/#{Time.now.strftime('%Y-%m-%d')}"
+    = link_to 'Cancel', "/admin/calendars/index"
       

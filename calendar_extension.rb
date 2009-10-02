@@ -8,24 +8,25 @@ class CalendarExtension < Radiant::Extension
   
   define_routes do |map|
     
-    map.resources :calendars
-    map.connect  '/daily_event/:id', :controller => 'calendars', :action => 'daily'
-    map.connect '/calendar/:id', :controller => 'calendars', :action => 'calendar'
-    map.connect '/calendars/:id', :controller => 'calendars', :action => 'show'
-    map.connect '/filter/calendar/:id', :controller => 'calendars', :action => 'filter'
+    map.connect '/daily_event/:id', :controller => 'calendars', :action => 'daily_list'
+    map.connect '/calendar_list/:id', :controller => 'calendars', :action => 'calendar_list'
+    map.connect '/main_calendar/:id', :controller => 'calendars', :action => 'index'
+    map.connect '/calendars/show/:id', :controller => 'calendars', :action => 'show'
+    map.connect '/filter/calendar', :controller => 'calendars', :action => 'filter'
     map.connect '/subscribe', :controller => 'calendars', :action => 'subscribe'
     map.connect '/events/:id', :controller => 'calendars', :action => 'export_events'
     map.connect '/daily_events/:id', :controller => 'calendars', :action => 'export_daily_events'
     map.connect '/events/:id/:category', :controller => 'calendars', :action => 'export_selected_events'
     map.connect '/event/:id', :controller => 'calendars', :action => 'export_event'
   
+    map.resources :calendars
     map.resources :categories
   
     map.with_options(:controller => 'admin/calendars') do |calendar|
-      calendar.calendar_index           'admin/calendars/:id',          :action => 'index'
-      calendar.calendar_show            'admin/calendars/show/:id',     :action => 'show'   
-      calendar.calendar_new             'admin/calendars/new/:id',      :action => 'new'
+      calendar.calendar_index           'admin/calendars/index',        :action => 'index'
+      calendar.calendar_new             'admin/calendars/new',          :action => 'new'
       calendar.calendar_create          'admin/calendars/create',       :action => 'create'
+      calendar.calendar_show            'admin/calendars/show/:id',     :action => 'show'   
       calendar.calendar_edit            'admin/calendars/edit/:id',     :action => 'edit'
       calendar.calendar_update          'admin/calendars/update/:id',   :action => 'update'  
       calendar.calendar_remove          'admin/calendars/destroy/:id',  :action => 'destroy'
@@ -43,7 +44,7 @@ class CalendarExtension < Radiant::Extension
   end
   
   def activate
-    admin.tabs.add "Calendar", "/admin/calendars/#{Time.now.strftime('%Y-%m-%d')}", :after => "Layouts", :visibility => [:all]
+    admin.tabs.add "Calendar", "/admin/calendars/index", :after => "Layouts", :visibility => [:all]
   end
   
   def deactivate

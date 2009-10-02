@@ -32,4 +32,5 @@ module Admin::CalendarsHelper
      [cell_text, cell_attrs]
    end
   end
+  
 end

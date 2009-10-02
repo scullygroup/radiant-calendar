@@ -36,7 +36,7 @@ class Admin::CalendarsController < ApplicationController
       respond_to do |format|
         if @calendar.save
           flash[:notice] = 'Calendar was successfully created.'
-          format.html { redirect_to("/admin/calendars/#{Time.now.strftime('%Y-%m-%d')}") }
+          format.html { redirect_to("/admin/calendars/index") }
         else
           format.html { render :action => "new" }
         end
@@ -50,7 +50,7 @@ class Admin::CalendarsController < ApplicationController
       respond_to do |format|
         if @calendar.update_attributes(params[:calendar])
           flash[:notice] = 'Calendar was successfully updated.'
-          format.html { redirect_to("/admin/calendars/#{Time.now.strftime('%Y-%m-%d')}") }
+          format.html { redirect_to("/admin/calendars/index") }
         else
           format.html { render :action => "edit" }
         end
@@ -64,7 +64,7 @@ class Admin::CalendarsController < ApplicationController
 
       respond_to do |format|
         flash[:notice] = 'Calendar event has been deleted.'
-        format.html { redirect_to("/admin/calendars/#{Time.now.strftime('%Y-%m-%d')}") }
+        format.html { redirect_to("/admin/calendars/index") }
       end
     end
     
