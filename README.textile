@@ -55,8 +55,8 @@ Reference the following in the head of your template:
       // Load Facebox
       $('a[rel*=facebox]').facebox();
     });
-    </script>
-</pre></code>
+  </script>
+</code></pre>
 
 Be sure to vendor Calendar Date Select and iCalendar in environment.rb
 <pre><code>
