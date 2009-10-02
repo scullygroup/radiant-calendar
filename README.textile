@@ -18,7 +18,7 @@ h1. Requirements
 <p>*jQuery* (included)<br />
 "http://jquery.com":http://jquery.com</p>
 
-<p>*Gems/Plugins*<br /> 
+<p>*Gems/Plugins*
 Squirrel, "git://github.com/thoughtbot/squirrel.git":git://github.com/thoughtbot/squirrel.git<br />
 Calendar Helper, "git://github.com/topfunky/calendar_helper.git":git://github.com/topfunky/calendar_helper.git<br />
 Calendar Date Select, "http://code.google.com/p/calendardateselect":http://code.google.com/p/calendardateselect<br />
