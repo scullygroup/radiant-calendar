@@ -90,3 +90,5 @@ To show a traditional month-view of the calendar
 <p>In each case, :id is the current date supplied in the following format:  2009-10-02</p>
 
 <p>Clicking a date in the mini-calendar widget will take you to the list-view of the calendar event.  Also, filtering events by category will show the list view of the results.</p>
+
+Copyright (c) 2009 Scully Group, released under the MIT License
