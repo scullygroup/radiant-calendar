@@ -1,0 +1,22 @@
+#subscribe
+  - if is_a_number?(params[:category])
+    = link_to image_tag("/images/ical.png") + "Subscribe to iCal Feed", "webcal://#{request.domain(2)}/subscribe_selected?category=#{params[:category].join(',')}"
+  - else
+    = link_to image_tag("/images/ical.png") + "Subscribe to iCal Feed", "webcal://#{request.domain(2)}/subscribe_selected?category=#{params[:category]}"
+  
+%h1
+  - dateheading = DateTime.strptime("#{params[:id]}T00:00:00+00:00")
+  = dateheading.strftime("%B %Y")
+    
+#ical-export{ :style => "display:none" }
+  - if request.request_uri == '/filter/calendar' && params[:category]
+    - cat = []
+    - for category in params[:category]
+      - unless category == params[:category].last
+        - cat.push("#{category},")
+      - else
+        - cat.push("#{category}")
+    = link_to "Export to iCalendar", "/events/#{params[:id]}/#{cat}"
+  - else
+    = link_to "Export to iCalendar", "/events/#{params[:id]}"   
+.clear

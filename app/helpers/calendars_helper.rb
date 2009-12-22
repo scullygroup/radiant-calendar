@@ -1,5 +1,31 @@
 module CalendarsHelper
   
+  # slugify takes the content of params[:event_type] and strips out all the special characters to make a web friendly slug
+  def slugify(urlstring)
+    urlstring = urlstring.downcase.strip
+    urlstring = urlstring.gsub(/\([A-Za-z0-9\.\s]*\)/, "")
+    urlstring = urlstring.gsub(/[^A-Za-z0-9\s]/, "").strip
+    urlstring = urlstring.gsub(/\s+/, "-")
+
+    return urlstring
+  end
+
+  # titleify strips out the ()'s, lowercases all word characters, and then formats the title in proper english via the titleize gem
+  def titleify(urlstring)
+    urlstring = urlstring.downcase.strip
+    urlstring = urlstring.gsub(/\([A-Za-z0-9\.\s]*\)/, "")
+    urlstring = urlstring.gsub(/[-]+/, " ")
+    urlstring = urlstring.gsub(/\s+/, " ")
+    urlstring = urlstring.titleize
+
+    return urlstring
+  end
+  
+  # is params[:category] a name or a number?
+  def is_a_number?(s)
+    s.to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
+  end
+  
   #show mini-calendar with events highlighted
   def mini_calendar
     if request.request_uri == '/'
@@ -16,6 +42,7 @@ module CalendarsHelper
     calendar( :month => selection.strftime("%m").to_i,
               :year => selection.strftime("%Y").to_i,
               :show_today => true,
+              :abbrev => (0..0),
               :previous_month_text => (link_to "#{image_tag '/images/left_arrow.gif', :alt => 'Previous Month'}", "/calendar/#{prev_month.strftime('%Y-%m-%d')}"),
               :next_month_text     => (link_to "#{image_tag '/images/right_arrow.gif', :alt => 'Next Month'}", "/calendar/#{next_month.strftime('%Y-%m-%d')}")) do |d|
       cell_text = "#{d.mday}<br />"

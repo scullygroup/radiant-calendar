@@ -1,25 +1,9 @@
-= render :partial => '/calendars/category_filter'
+= render '/calendars/category_filter'
 
 - content_for :calendar_list do
 
-  = link_to image_tag("/images/ical.png") + "Subscribe to iCal Feed", "webcal://#{request.domain(2)}/subscribe"
-    
-  %h1
-    - dateheading = DateTime.strptime("#{params[:id]}T00:00:00+00:00")
-    = dateheading.strftime("%B %Y")
-      
-  #ical-export
-    - if request.request_uri == '/filter/calendar' && params[:category]
-      - cat = []
-      - for category in params[:category]
-        - unless category == params[:category].last
-          - cat.push("#{category},")
-        - else
-          - cat.push("#{category}")
-      = link_to "Export to iCalendar", "/events/#{params[:id]}/#{cat}"
-    - else
-      = link_to "Export to iCalendar", "/events/#{params[:id]}"   
-  .clear
+  = render '/calendars/calendar_heading'
+  
   - if @events.empty?
     #calendar-content.no-events
       %p
@@ -27,15 +11,25 @@
           Sorry, there are no events that match your search criteria
           
   - @daily_events.sort.each do |start_date, events|
+    
+    - mydate = DateTime.strptime("#{params[:id]}T00:00:00+00:00")
+    
     #event-headline
       .event-day
         = h start_date.strftime("%a").upcase
 
       .event-date
         = h start_date.strftime("%B %d").upcase
+        
+        - for event in events
+          - if event.end_date.strftime("%B %d") > event.start_date.strftime("%B %d")
+            thru
+            = event.end_date.strftime("%B %d").upcase
+    
     .clear 
-    #calendar-content
-      - for event in events
+    
+    - for event in events
+      #calendar-content
         %h1.event
           = link_to event.event.upcase, "/calendars/#{event.id}", :rel => 'facebox'
 

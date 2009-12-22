@@ -5,6 +5,8 @@ class CalendarsController < ApplicationController
   no_login_required
   radiant_layout 'Calendar'
   
+  include CalendarsHelper
+  
   def index
     @events = Calendar.find(:all, :order => "start_date ASC")
 
@@ -15,10 +17,8 @@ class CalendarsController < ApplicationController
 
 # show end-user view of calendar
   def calendar_list
-    @events = Calendar.find(:all) do
-      start_date >= params[:id]
-      order_by start_date
-    end
+    params[:id] = "#{Time.now.strftime('%Y-%m-%d')}" if !params[:id]
+    @events = Calendar.current_events(params[:id])
 
     @daily_events = @events.group_by { |d| d.start_date }
 
@@ -29,49 +29,35 @@ class CalendarsController < ApplicationController
 
 # show all events for the chosen day
   def daily_list
-    @events = Calendar.find(:all) do
-      end_date >= params[:id]
-      any do
-        start_date.contains? params[:id]
-        start_date <= params[:id]
-      end
-      order_by start_date
-    end
-
+    @events = Calendar.day_events(params[:id])
     @daily_events = @events.group_by { |d| d.start_date }
 
     respond_to do |format|
-      format.html
+      format.html { render :template => '/calendars/calendar_list' }
     end
   end
 
 # show calendar for the chosen categories
   def categories
-    cat = params[:category]
-    if cat
-      @events = Calendar.find(:all) do
-        any do
-          cat.each do |c|
-            categories.id == "#{c}"
-          end
-        end
-        start = DateTime.strptime("#{params[:id]}T00:00:00+00:00")
-        month = start.strftime("%Y-%m")
-
-        start_date >= month
-        order_by start_date
-      end
-
-      @daily_events = @events.group_by { |d| d.start_date }
-
+    if !is_a_number?(params[:category])
+      c = Category.find_by_name(params[:category])
+      cat = c.id
     else
-      @events = Calendar.find(:all) do
-        start = DateTime.strptime("#{params[:id]}T00:00:00+00:00")
-        month = start.strftime("%Y-%m")
-        start_date >= month
-        order_by start_date
-      end
-       @daily_events = @events.group_by { |d| d.start_date }
+      cat = params[:category]
+    end
+    params[:id] = Time.now.strftime("%Y-%m-%d") if !params[:id]
+    if cat
+      start = DateTime.strptime("#{params[:id]}T00:00:00+00:00")
+      month = start.strftime("%Y-%m")
+      
+      @events = Calendar.filter_events(month, cat)
+        
+      @daily_events = @events.group_by { |d| d.start_date }
+    else
+      start = DateTime.strptime("#{params[:id]}T00:00:00+00:00")
+      month = start.strftime("%Y-%m")
+      @events = Calendar.current_events(params[:id])
+      @daily_events = @events.group_by { |d| d.start_date }
     end
   end
 
@@ -96,8 +82,8 @@ class CalendarsController < ApplicationController
 
     for cal in @events
       event = Icalendar::Event.new
-      event.start = cal.start_date.strftime("%Y%m%dT%H%M%S")
-      event.end = cal.end_date.strftime("%Y%m%dT%H%M%S")
+      event.start = cal.start_date.strftime("%Y%m%d") + cal.start_time.strftime("T%H%M%S")
+      event.end = cal.end_date.strftime("%Y%m%d") + cal.end_time.strftime("T%H%M%S")
       event.summary = cal.event
       event.description = cal.description
       #event.location = cal.location
@@ -117,14 +103,29 @@ class CalendarsController < ApplicationController
       format.ics  { render :text => self.subscribe_events}
     end
   end
+  
+# Subscribe to an ics feed for tthe selected category
+  def subscribe_selected
+    cat = params[:category].split(',')
+    if cat
+      @events = Calendar.subscribe_selected(cat)
+    else
+      @events = Calendar.current_events(Time.now.strftime("%Y-%m-%d"))
+    end
+
+    respond_to do |format|
+      format.ics  { render :text => self.subscribe_events}
+    end
+  end
+    
 
   def subscribe_events
     @calendar = Icalendar::Calendar.new
 
     for cal in @events
       event = Icalendar::Event.new
-      event.start = cal.start_date.strftime("%Y%m%dT%H%M%S")
-      event.end = cal.end_date.strftime("%Y%m%dT%H%M%S")
+      event.start = cal.start_date.strftime("%Y%m%d") + cal.start_time.strftime("T%H%M%S")
+      event.end = cal.end_date.strftime("%Y%m%d") + cal.end_time.strftime("T%H%M%S")
       event.summary = cal.event
       event.description = cal.description
       #event.location = cal.location
@@ -188,8 +189,8 @@ class CalendarsController < ApplicationController
     @calendar = Icalendar::Calendar.new
 
     event = Icalendar::Event.new
-    event.start = @event.start_date.strftime("%Y%m%dT%H%M%S")
-    event.end = @event.end_date.strftime("%Y%m%dT%H%M%S")
+    event.start = @event.start_date.strftime("%Y%m%d") + @event.start_time.strftime("T%H%M%S")
+    event.end = @event.end_date.strftime("%Y%m%d") + @event.end_time.strftime("T%H%M%S")
     event.summary = @event.event
     event.description = @event.description
     #event.location = @event.location

@@ -1,4 +1,7 @@
 class Admin::CategoriesController < ApplicationController
+  
+  include Admin::CategoriesHelper
+  
   def index
     @categories = Category.all
 

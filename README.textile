@@ -19,10 +19,10 @@ h1. Requirements
 "http://jquery.com":http://jquery.com</p>
 
 <p>*Gems/Plugins*
-Squirrel, "git://github.com/thoughtbot/squirrel.git":git://github.com/thoughtbot/squirrel.git<br />
+Search Logic, "git://github.com/thoughtbot/squirrel.git":git://github.com/thoughtbot/squirrel.git<br />
 Calendar Helper, "git://github.com/topfunky/calendar_helper.git":git://github.com/topfunky/calendar_helper.git<br />
-Calendar Date Select, "http://code.google.com/p/calendardateselect":http://code.google.com/p/calendardateselect<br />
-iCalendar, "http://icalendar.rubyforge.org":http://icalendar.rubyforge.org</p>
+iCalendar, "http://icalendar.rubyforge.org":http://icalendar.rubyforge.org<br />
+Twelve Hour Time,"http://code.google.com/p/rails-twelve-hour-time-plugin":http://code.google.com/p/rails-twelve-hour-time-plugin</p>
 
 <p>*Radiant Extensions*
 Shared-Layout, "http://github.com/radiant/radiant-share-layouts-extension":http://github.com/radiant/radiant-share-layouts-extension</p>
@@ -44,24 +44,21 @@ h1. How to Use
 
 Reference the following in the head of your template:
 <pre><code>
-  <script src="/javascripts/jquery-1.3.2.js" type="text/javascript"></script>
-  <script src="/javascripts/calendar.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="http://jqueryui.com/latest/themes/base/ui.all.css" />
   <link href="/stylesheets/calendar.css" media="screen" rel="stylesheet" type="text/css"/>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js" type="text/javascript"></script>
+  <script src="http://jqueryui.com/latest/ui/ui.datepicker.js" type="text/javascript"></script>
+  <script src="/javascripts/calendar.js" type="text/javascript"></script>
+  
   <link href="/facebox/facebox.css" media="screen" rel="stylesheet" type="text/css"/>
   <script src="/facebox/facebox.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    jQuery.noConflict();
-    jQuery(document).ready(function($) {
-      // Load Facebox
-      $('a[rel*=facebox]').facebox();
-    });
-  </script>
 </code></pre>
 
 Be sure to vendor Calendar Date Select and iCalendar in environment.rb
 <pre><code>
-  config.gem 'calendar_date_select',
-              :version => '1.15'
+  config.gem "searchlogic", :lib => "searchlogic"
   config.gem  'icalendar'
 </code></pre>
 

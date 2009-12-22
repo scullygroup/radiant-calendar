@@ -1,8 +1,10 @@
-- include_stylesheet 'calendar-admin'
-= calendar_date_select_includes "silver"
+= render '/admin/calendars/includes'
 
-= render :partial => '/admin/calendars/secondary_nav'
+%script
+  jQuery.noConflict();
+  
+= render '/admin/calendars/secondary_nav'
 
 %h1 Add New Event
 
-= render :partial => '/admin/calendars/form'
+= render '/admin/calendars/form'

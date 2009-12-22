@@ -1,9 +1,11 @@
 .secondary-navigation
   %ul
     %li
+      = link_to 'Show All Events', "/admin/calendars"
+    %li
       = link_to 'Add New Event', "/admin/calendars/new"
     %li
-      = link_to 'Add New Category', "/admin/categories/new"
-    %li
       = link_to 'Show All Categories', "/admin/categories"
+    %li
+      = link_to 'Add New Category', "/admin/categories/new"
   .clear

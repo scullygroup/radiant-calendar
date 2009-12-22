@@ -13,16 +13,23 @@
   %p
     = f.label :description
     %br
-    /= fckeditor_textarea(:calendar, :description, :width => "900px", :height => "400px")
     = f.text_area :description
   %p
-    = f.label :start
+    = f.label :start_date
     %br
-    = f.calendar_date_select :start_date, :time => true
+    = f.text_field :start_date, :class => "date-pick"
   %p
-    = f.label :end
+    = f.label :start_time
     %br
-    = f.calendar_date_select :end_date, :time => true
+    = f.time_select :start_time, { :twelve_hour => true }
+  %p
+    = f.label :end_date
+    %br
+    = f.text_field :end_date, :class => "date-pick"
+  %p
+    = f.label :end_time
+    %br
+    = f.time_select :end_time, { :twelve_hour => true }
 
   %h2
     Assign this event to one or more Categories
@@ -30,7 +37,7 @@
     - for category in Category.all
       %li
         = check_box_tag "calendar[category_ids][]", category.id, @calendar.categories.include?(category)
-        = category.name
+        = h titleify(category.name)
   
   %p
     = save_model_button(@calendar)

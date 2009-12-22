@@ -10,12 +10,14 @@
 %p
   %strong
     Start:
-  = h @calendar.start_date.strftime("%B %d, %Y %I:%M %p")
+  = h @calendar.start_date.strftime("%B %d, %Y")
+  = h @calendar.start_time.strftime("%I:%M %p")
   
 %p
   %strong
     End:
-  = h @calendar.end_date.strftime("%B %d, %Y %I:%M %p")
+  = h @calendar.end_date.strftime("%B %d, %Y")
+  = h @calendar.end_time.strftime("%I:%M %p")
         
 #ical_export
   = link_to "Export Event", "/event/#{@calendar.id}"

@@ -1,5 +1,7 @@
 class Admin::CalendarsController < ApplicationController
   
+    include Admin::CalendarsHelper
+    
     def index
       @events = Calendar.find(:all, :order => "start_date ASC")
 

@@ -9,8 +9,8 @@
   - @categories.each do |category|
     %tr
       %td
-        = h category.name
+        = h titleify(category.name)
       %td
         = link_to 'Edit', "/admin/categories/edit/#{category.id}"
         |
-        = link_to 'Destroy', category, :confirm => 'Are you sure?', :method => :delete
+        = link_to 'Destroy', "/admin/categories/destroy/#{category.id}", :confirm => 'Are you sure?', :method => :delete
