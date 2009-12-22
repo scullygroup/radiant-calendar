@@ -43,8 +43,8 @@ module CalendarsHelper
               :year => selection.strftime("%Y").to_i,
               :show_today => true,
               :abbrev => (0..0),
-              :previous_month_text => (link_to "#{image_tag '/images/left_arrow.gif', :alt => 'Previous Month'}", "/calendar/#{prev_month.strftime('%Y-%m-%d')}"),
-              :next_month_text     => (link_to "#{image_tag '/images/right_arrow.gif', :alt => 'Next Month'}", "/calendar/#{next_month.strftime('%Y-%m-%d')}")) do |d|
+              :previous_month_text => (link_to "#{image_tag '/images/left_arrow.gif', :alt => 'Previous Month'}", "/calendar_list/#{prev_month.strftime('%Y-%m-%d')}"),
+              :next_month_text     => (link_to "#{image_tag '/images/right_arrow.gif', :alt => 'Next Month'}", "/calendar_list/#{next_month.strftime('%Y-%m-%d')}")) do |d|
       cell_text = "#{d.mday}<br />"
       cell_attrs = {:class => 'day'}
       @calendars.each do |e|

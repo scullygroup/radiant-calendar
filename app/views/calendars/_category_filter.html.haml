@@ -23,16 +23,16 @@
       / 
       / %hr
 
-      #checkboxes
-        = link_to "#{image_tag '/images/check_all.jpg', :alt => 'Check All'}", '#check_all', :name => "check_all", :id => 'check_all', :target => '_top'
-        = link_to "#{image_tag '/images/uncheck_all.jpg', :alt => 'Uncheck All'}",'#uncheck_all', :name => "uncheck_all", :id => 'uncheck_all', :target => '_top'
+    #checkboxes
+      = link_to "#{image_tag '/images/check_all.jpg', :alt => 'Check All'}", '#check_all', :name => "check_all", :id => 'check_all', :target => '_top'
+      = link_to "#{image_tag '/images/uncheck_all.jpg', :alt => 'Uncheck All'}",'#uncheck_all', :name => "uncheck_all", :id => 'uncheck_all', :target => '_top'
 
       - form_for :calendar, :url => '/filter/calendar', :method => 'post' do
         - start_date = Time.now
         = hidden_field_tag "id", start_date.strftime("%Y-%m-%d")
 
         %ul.category-list
- 
+
           - for category in Category.all
             %li       
               - @cat = params[:category]
@@ -44,6 +44,7 @@
 
               = check_box_tag "category[]", category.id, check
               = titleify(category.name)
+        #calendarbottom
 
-        %p
-          = submit_tag "", :name => nil, :id => "update"
+          %p
+            = submit_tag "", :name => nil, :id => "update"
