@@ -1,5 +1,6 @@
 h1. Radiant CMS Calendar Extension
 
+_Note: This version has been updated for Radiant 0.9.x.  If you have an older version, checkout the 0.8 branch._
 
 h1. Features
 
@@ -44,12 +45,9 @@ h1. How to Use
 
 Reference the following in the head of your template:
 <pre><code>
-  <link rel="stylesheet" type="text/css" href="http://jqueryui.com/latest/themes/base/ui.all.css" />
   <link href="/stylesheets/calendar.css" media="screen" rel="stylesheet" type="text/css"/>
   
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js" type="text/javascript"></script>
-  <script src="http://jqueryui.com/latest/ui/ui.datepicker.js" type="text/javascript"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
   <script src="/javascripts/calendar.js" type="text/javascript"></script>
   
   <link href="/facebox/facebox.css" media="screen" rel="stylesheet" type="text/css"/>
@@ -67,8 +65,14 @@ This extension uses Sean Cribbs radiant-share-layouts-extension, "http://github.
 The main calendar view is wrapped in a block like so (in this example this wraps the full-calendar view): 
 <pre><code><% content_for :main_calendar do %></code></pre>
 
+Likewise, a list-view of the main calendar is wrapped in a block like so: 
+<pre><code><% content_for :calendar_list do %></code></pre>
+
 In order to invoke the full-calendar view on a Radiant page, create a layout called "Calendar" and insert the following radial tags wherever you want the calendar to appear: 
 <pre><code><r:content part="main_calendar"/></code></pre>
+
+Or for the list view:
+<pre><code><r:content part="calendar_list"/></code></pre>
 
 To display the mini-calendar widget, use the following radial tag:
 <pre><code><r:content part="mini_calendar"/></code></pre>
@@ -88,4 +92,4 @@ To show a traditional month-view of the calendar
 
 <p>Clicking a date in the mini-calendar widget will take you to the list-view of the calendar event.  Also, filtering events by category will show the list view of the results.</p>
 
-Copyright (c) 2009 Scully Group, released under the MIT License
+Copyright (c) 2010 Scully Group, released under the MIT License
