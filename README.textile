@@ -19,8 +19,8 @@ h1. Requirements
 "http://jquery.com":http://jquery.com</p>
 
 <p>*Gems/Plugins*
-Search Logic, "http://github.com/binarylogic/searchlogic":http://github.com/binarylogic/searchlogic<br />
-Calendar Helper, "http://github.com/topfunky/calendar_helper":http://github.com/topfunky/calendar_helper<br />
+Search Logic, "git://github.com/thoughtbot/squirrel.git":git://github.com/thoughtbot/squirrel.git<br />
+Calendar Helper, "git://github.com/topfunky/calendar_helper.git":git://github.com/topfunky/calendar_helper.git<br />
 iCalendar, "http://icalendar.rubyforge.org":http://icalendar.rubyforge.org<br />
 Twelve Hour Time,"http://code.google.com/p/rails-twelve-hour-time-plugin":http://code.google.com/p/rails-twelve-hour-time-plugin</p>
 

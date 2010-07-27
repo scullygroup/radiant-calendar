@@ -18,6 +18,14 @@
     End:
   = h @calendar.end_date.strftime("%B %d, %Y")
   = h @calendar.end_time.strftime("%I:%M %p")
+  
+%p  
+  %strong
+    Event Categories
+  %ul.category-list
+    - for category in @calendar.categories
+      %li
+        = h titleify(category.name)
         
 #ical_export
   = link_to "Export Event", "/event/#{@calendar.id}"

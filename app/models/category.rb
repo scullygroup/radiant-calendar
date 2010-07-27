@@ -8,7 +8,7 @@ class Category < ActiveRecord::Base
   
   attr_accessible :name
   
-  before_save :sanitize_name
+  #before_save :sanitize_name
   
   def sanitize_name
     self.name = slugify(name)
